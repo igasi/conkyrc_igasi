@@ -1,0 +1,94 @@
+# conky configuration
+#  igasi conky config
+##############################################
+# Settings
+##############################################
+
+
+
+# maintain spacing between certain elements
+use_spacer yes
+
+use_xft yes
+
+
+background yes
+use_xft yes
+xftfont Liberation Sans:size=9
+xftalpha 1
+update_interval 1.0
+total_run_times 0
+
+own_window yes
+own_window_transparent no
+own_window_type desktop
+#own_window_argb_visual yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_argb_visual yes
+own_window_argb_value 180
+
+double_buffer yes
+minimum_size 200 200
+maximum_width 240
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+default_color white
+default_shade_color 000000
+default_outline_color 828282
+alignment top_right
+gap_x 12
+gap_y 56
+no_buffers yes
+uppercase no
+cpu_avg_samples 2
+override_utf8_locale no
+##############################################
+#  Output
+##############################################
+TEXT
+${color #dc0e0e}TIME ${hr}$color
+
+${font LCDMono:size=40}${color #ddaa00}${time %R}${font LCDMono:size=12}:$color ${color white}${time %S}${font}$color
+${font Zekton:size=12}${alignr 5}${color #ddaa00}${time %a,}$color ${time %B} ${color #ddaa00}${time %e }$color${time %G}${font}
+
+${color #dc0e0e}SYSTEM INFO ${hr}$color
+
+Host:$alignr$nodename
+Uptime:$alignr$uptime
+${color #ddaa00}RAM:$alignr$mem/$memmax $color
+Swap usage:$alignr$swap/$swapmax
+Disk usage:$alignr${fs_used /}/${fs_size /}
+${color white}CPU usage:$alignr${cpu cpu0}%$color
+
+
+${color #dc0e0e}TOP MEN USAGE ${hr}$color
+
+${font Zekton:size=9}${color #ddaa00} $processes processes ($running_processes running) $color
+
+NAME $alignr PID    CPU 
+${color #ddaa00}${top name 1} $alignr ${top pid 1} ${top cpu 1}$color
+${top name 2} $alignr ${top pid 2} ${top cpu 2}
+${top name 3} $alignr ${top pid 3} ${top cpu 3}
+${top name 4} $alignr ${top pid 4} ${top cpu 4}
+${top name 5} $alignr ${top pid 5} ${top cpu 5}
+${top name 6} $alignr ${top pid 6} ${top cpu 6}
+${top name 7} $alignr ${top pid 7} ${top cpu 7}
+${top name 8} $alignr ${top pid 8} ${top cpu 8}
+${top name 9} $alignr ${top pid 8} ${top cpu 9}
+
+
+${color #dc0e0e}NETWORK ${hr}$color
+${if_existing /proc/net/route wlan0}
+${color #ddaa00}wlan0$color
+${font Zekton:size=7}Up: ${alignr}${upspeed wlan0} kb/s $color ${upspeedgraph wlan0 8,60 AR5413 AR5414}
+Down: ${alignr}${downspeed wlan0} kb/s $color ${downspeedgraph wlan0 8,60 789E2D A7CC5C}
+Upload: ${alignr}${totalup wlan0}
+Download: ${alignr}${totaldown wlan0}
+Signal: ${alignr}${wireless_link_qual wlan0}% ${wireless_link_bar 8,60 wlan0}${else}${if_existing /proc/net/route eth0}
+${color #ddaa00}ETH0$color
+Up: ${upspeed eth0} kb/s ${alignr}${upspeedgraph eth0 8,60 789E2D A7CC5C}
+Down: ${downspeed eth0} kb/s ${alignr}${downspeedgraph eth0 8,60 789E2D A7CC5C}
+Upload: ${alignr}${totalup eth0}
+Download: ${alignr}${totaldown eth0}${endif}${else}${if_existing /proc/net/route eth1}
